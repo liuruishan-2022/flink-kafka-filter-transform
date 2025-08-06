@@ -1,0 +1,11 @@
+kafka:
+  bootstrap_servers: "localhost:9092"
+  group: "flink-kafka-filter-transform"
+  bindings:
+    - "flink-1"
+    - "flink-2"
+transforms:
+  - source_topic: "flink-1"
+    db: "db_1"
+    table: "table_1"
+    target_topic: "table-1-topic"

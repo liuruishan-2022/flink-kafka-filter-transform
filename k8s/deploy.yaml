@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flink-kafka-filter-transform-cm
+data:
+  config.yaml: |
+    kafka:
+      bootstrap_servers: "localhost:9092"
+      group: "flink-kafka-filter-transform"
+      bindings:
+        - "flink-1"
+        - "flink-2"
+    transforms:
+      - source_topic: "flink-1"
+        db: "db_1"
+        table: "table_1"
+        target_topic: "table-1-topic"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flink-kafka-filter-transform
+spec:
+  selector:
+    matchLabels:
+      app: flink-kafka-filter-transform
+  template:
+    metadata:
+      labels:
+        app: flink-kafka-filter-transform
+    spec:
+      containers:
+        - image: flink-kafka-filter-transform:v1.0.0-fa98a6f5c5
+          name: flink-kafka-filter-transform
+          ports:
+            - containerPort: 9266
+              name: monitoring
+              protocol: TCP
+          resources:
+            limits:
+              cpu: '4'
+              memory: 500Mi
+            requests:
+              cpu: 10m
+              memory: 200Mi
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: date-config
+            - mountPath: /opt/config.yaml
+              name: config
+              subPath: config.yaml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: flink-kafka-filter-transform-cm
+          name: config
+        - hostPath:
+            path: /etc/localtime
+          name: date-config
+
