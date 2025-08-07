@@ -113,6 +113,7 @@ pub struct RegexTransform {
 mod tests {
 
     use regex::Regex;
+    use tracing::info;
 
     use crate::LocalTimer;
 

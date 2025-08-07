@@ -172,16 +172,12 @@ mod tests {
     "before": null,
     "after": {
         "id": 62,
-        "carrier_marking": "677",
-        "channel_name": "广西电信(新网银行)_10690719",
-        "region_id": 15,
-        "create_time": "2024-01-12 18:19:55",
-        "update_time": "2024-01-12 18:19:55"
+        "update_time:"2025-08-07 13:37:45"
     },
     "op": "c",
     "source": {
-        "db": "sedp_biz_test",
-        "table": "sedp_province_channel_monitor_plan"
+        "db": "db_1",
+        "table": "table_1"
     }
 }
         "#;
