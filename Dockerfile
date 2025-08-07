@@ -1,4 +1,4 @@
-FROM xwharbor.wxchina.com/cpaas/component/ubuntu:24.10
+FROM ubuntu:24.10
 
 COPY ./target/release/flink-kafka-filter-transform /opt
 
